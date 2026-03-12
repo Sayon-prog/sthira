@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2 Minute Reset - Quick Wellness</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>2 Minute Reset</h1>
+            <p class="tagline">Quick moments for better wellness</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Exercise Selection Section -->
+            <section class="exercises-section">
+                <h2>Choose Your Reset</h2>
+                <div class="exercise-grid">
+                    <div class="exercise-card" data-exercise="breathing">
+                        <div class="exercise-icon">🫁</div>
+                        <h3>Breathing</h3>
+                        <p>Calm your mind with guided breathing</p>
+                    </div>
+                    <div class="exercise-card" data-exercise="meditation">
+                        <div class="exercise-icon">🧘</div>
+                        <h3>Meditation</h3>
+                        <p>Brief mindfulness practice</p>
+                    </div>
+                    <div class="exercise-card" data-exercise="stretch">
+                        <div class="exercise-icon">🤸</div>
+                        <h3>Stretch</h3>
+                        <p>Gentle stretches for tension relief</p>
+                    </div>
+                    <div class="exercise-card" data-exercise="gratitude">
+                        <div class="exercise-icon">🙏</div>
+                        <h3>Gratitude</h3>
+                        <p>Reflect on what matters most</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exercise Display Section -->
+            <section class="exercise-display" id="exerciseDisplay" style="display: none;">
+                <button class="back-button" id="backButton">← Back</button>
+                <div class="exercise-content">
+                    <h2 id="exerciseTitle"></h2>
+                    <div class="timer-section">
+                        <div class="timer" id="timer">02:00</div>
+                        <div class="timer-controls">
+                            <button id="startButton" class="btn btn-primary">Start</button>
+                            <button id="pauseButton" class="btn btn-secondary" style="display: none;">Pause</button>
+                            <button id="resetButton" class="btn btn-secondary">Reset</button>
+                        </div>
+                    </div>
+                    <div class="exercise-instructions" id="exerciseInstructions"></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 2 Minute Reset. Take a moment for yourself.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
