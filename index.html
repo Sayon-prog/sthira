@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2 Minute Reset - Wellness Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e1e8ed 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #2c3e50;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #34495e;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .start-btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Steps */
+        .step {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.5s ease;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #34495e;
+            font-size: 1.8em;
+        }
+
+        .continue-btn {
+            display: block;
+            margin: 30px auto 0;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Breathing Section */
+        .breathing-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 40px auto;
+            animation: breathe 8s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .breathing-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #7f8c8d;
+        }
+
+        .breathing-timer {
+            text-align: center;
+            font-size: 1.5em;
+            color: #34495e;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        /* Focus Game Section */
+        .game-instruction {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+            color: #7f8c8d;
+        }
+
+        .game-word {
+            font-size: 3em;
+            font-weight: bold;
+            text-align: center;
+            margin: 40px 0;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .color-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .color-btn {
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .color-btn.red { background: #e74c3c; color: white; }
+        .color-btn.blue { background: #3498db; color: white; }
+        .color-btn.green { background: #27ae60; color: white; }
+        .color-btn.yellow { background: #f39c12; color: black; }
+
+        .color-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .round-timer {
+            text-align: center;
+            font-size: 2em;
+            color: #e74c3c;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .round-counter {
+            text-align: center;
+            margin-top: 20px;
+            color: #7f8c8d;
+        }
+
+        /* Vent Section */
+        .vent-title {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+
+        .vent-subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .vent-textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            border: 2px solid #bdc3c7;
+            border-radius: 15px;
+            font-size: 1em;
+            resize: vertical;
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+
+        .voice-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .voice-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);
+        }
+
+        .voice-status {
+            text-align: center;
+            margin: 10px 0;
+            font-weight: 600;
+            color: #e74c3c;
+        }
+
+        .send-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .response-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Score Section */
+        .score-card {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .score-card h2 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .score-item {
+            margin: 15px 0;
+            font-size: 1.1em;
+        }
+
+        .score-suggestion {
+            margin-top: 20px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        /* Tea Ritual Section */
+        .tea-ritual {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .tea-ritual h2 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .tea-ritual p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .tea-btn {
+            background: white;
+            color: #f5576c;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .tea-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .breathing-circle {
+                width: 150px;
+                height: 150px;
+            }
+
+            .game-word {
+                font-size: 2.5em;
+            }
+
+            .color-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .game-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header" id="header">
+            <h1>2 Minute Reset</h1>
+            <p>Calm your mind before your next cup of tea.</p>
+            <button class="start-btn" onclick="startReset()">Start My Reset</button>
+        </div>
+
+        <!-- Step 1: Breathing Challenge -->
+        <div id="breathing" class="step">
+            <h2>Breathing Challenge</h2>
+            <div class="breathing-circle"></div>
+            <div class="breathing-text">
+                <p>Inhale slowly as the circle expands.</p>
+                <p>Exhale slowly as it contracts.</p>
+            </div>
+            <div class="breathing-timer" id="breathingTimer">20</div>
+        </div>
+
+        <!-- Step 2: Focus Game -->
+        <div id="focus" class="step">
+            <h2>Focus Reset Game</h2>
+            <div class="game-instruction">Click the COLOR of the word, not the word itself.</div>
+            <div class="game-word" id="gameWord"></div>
+            <div class="color-buttons">
+                <button class="color-btn red" onclick="checkAnswer('red')">RED</button>
+                <button class="color-btn blue" onclick="checkAnswer('blue')">BLUE</button>
+                <button class="color-btn green" onclick="checkAnswer('green')">GREEN</button>
+                <button class="color-btn yellow" onclick="checkAnswer('yellow')">YELLOW</button>
+            </div>
+            <div class="game-stats">
+                <div>Score: <span id="score">0</span></div>
+                <div>Focus Streak: <span id="streak">0</span></div>
+            </div>
+            <div class="round-timer" id="roundTimer">3</div>
+            <div class="round-counter" id="roundCounter">Round 1 of 5</div>
+        </div>
+
+        <!-- Step 3: Vent -->
+        <div id="vent" class="step">
+            <h2 class="vent-title">Talk it out</h2>
+            <p class="vent-subtitle">Sometimes your mind just needs to release what it's holding.</p>
+            <textarea class="vent-textarea" id="ventText" placeholder="Share what's on your mind..."></textarea>
+            <button class="voice-btn" id="voiceBtn" onclick="startVoiceInput()">🎤 Talk to the App</button>
+            <div class="voice-status" id="voiceStatus"></div>
+            <button class="send-btn" onclick="processVent()">Send</button>
+            <div id="responseCard" class="response-card" style="display: none;"></div>
+        </div>
+
+        <!-- Step 4: Score -->
+        <div id="score" class="step">
+            <div class="score-card">
+                <h2>Your Stress Reset Score</h2>
+                <div class="score-item">Stress Level: <span id="stressLevel">Medium</span></div>
+                <div class="score-item">Focus Level: <span id="focusLevel">Medium</span></div>
+                <div class="score-suggestion" id="scoreSuggestion">Your mind seems balanced. Keep up the good work!</div>
+            </div>
+        </div>
+
+        <!-- Step 5: Tea Ritual -->
+        <div id="tea" class="step">
+            <div class="tea-ritual">
+                <h2>Complete Your Reset Ritual</h2>
+                <p>A calming cup of butterfly pea tea can help settle the mind and body.</p>
+                <a href="#" class="tea-btn">Explore the Blue Tea Ritual</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State management
+        let currentStep = 0;
+        let score = 0;
+        let streak = 0;
+        let currentRound = 1;
+        let gameTimer;
+        let breathingTimer;
+        let currentWord = '';
+        let currentColor = '';
+        let completedBreathing = false;
+        let completedFocus = false;
+        let completedVent = false;
+
+        // Start the reset process
+        function startReset() {
+            document.getElementById('header').style.display = 'none';
+            showStep(1);
+            startBreathingChallenge();
+        }
+
+        // Show specific step
+        function showStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            const stepId = getStepId(stepNumber);
+            document.getElementById(stepId).classList.add('active');
+            currentStep = stepNumber;
+        }
+
+        function getStepId(stepNumber) {
+            const stepIds = ['', 'breathing', 'focus', 'vent', 'score', 'tea'];
+            return stepIds[stepNumber];
+        }
+
+        // Step 1: Breathing Challenge
+        function startBreathingChallenge() {
+            let timeLeft = 20;
+            const timerElement = document.getElementById('breathingTimer');
+
+            breathingTimer = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(breathingTimer);
+                    completedBreathing = true;
+                    // Add continue button
+                    const continueBtn = document.createElement('button');
+                    continueBtn.className = 'continue-btn';
+                    continueBtn.textContent = 'Continue';
+                    continueBtn.onclick = () => showStep(2);
+                    document.getElementById('breathing').appendChild(continueBtn);
+                }
+            }, 1000);
+        }
+
+        // Step 2: Focus Game
+        function startFocusGame() {
+            generateNewRound();
+            updateGameUI();
+        }
+
+        function generateNewRound() {
+            const colors = ['red', 'blue', 'green', 'yellow'];
+            const words = ['RED', 'BLUE', 'GREEN', 'YELLOW'];
+
+            currentColor = colors[Math.floor(Math.random() * colors.length)];
+            let wordColor = colors[Math.floor(Math.random() * colors.length)];
+            while (wordColor === currentColor) {
+                wordColor = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            currentWord = words[colors.indexOf(currentColor)];
+            document.getElementById('gameWord').textContent = currentWord;
+            document.getElementById('gameWord').style.color = wordColor;
+
+            startRoundTimer();
+        }
+
+        function startRoundTimer() {
+            let timeLeft = 3;
+            document.getElementById('roundTimer').textContent = timeLeft;
+            gameTimer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('roundTimer').textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(gameTimer);
+                    alert('Too slow. Reset your focus.');
+                    resetStreak();
+                    if (currentRound < 5) {
+                        currentRound++;
+                        updateGameUI();
+                        setTimeout(generateNewRound, 1000);
+                    } else {
+                        endFocusGame();
+                    }
+                }
+            }, 1000);
+        }
+
+        function checkAnswer(selectedColor) {
+            clearInterval(gameTimer);
+            if (selectedColor === currentColor) {
+                score++;
+                streak++;
+            } else {
+                resetStreak();
+            }
+
+            if (currentRound < 5) {
+                currentRound++;
+                updateGameUI();
+                setTimeout(generateNewRound, 1000);
+            } else {
+                endFocusGame();
+            }
+        }
+
+        function resetStreak() {
+            streak = 0;
+        }
+
+        function updateGameUI() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('streak').textContent = streak;
+            document.getElementById('roundCounter').textContent = `Round ${currentRound} of 5`;
+        }
+
+        function endFocusGame() {
+            completedFocus = true;
+            // Add continue button
+            const continueBtn = document.createElement('button');
+            continueBtn.className = 'continue-btn';
+            continueBtn.textContent = 'Continue';
+            continueBtn.onclick = () => showStep(3);
+            document.getElementById('focus').appendChild(continueBtn);
+        }
+
+        // Initialize focus game when step 2 is shown
+        document.getElementById('focus').addEventListener('transitionend', function() {
+            if (this.classList.contains('active') && !completedFocus) {
+                startFocusGame();
+            }
+        });
+
+        // Step 3: Vent
+        function startVoiceInput() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                document.getElementById('voiceStatus').textContent = 'Voice input not supported in this browser.';
+                return;
+            }
+
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = () => {
+                document.getElementById('voiceStatus').textContent = 'Listening...';
+                document.getElementById('voiceBtn').disabled = true;
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('ventText').value += transcript;
+                document.getElementById('voiceStatus').textContent = '';
+                document.getElementById('voiceBtn').disabled = false;
+            };
+
+            recognition.onerror = () => {
+                document.getElementById('voiceStatus').textContent = 'Voice recognition error.';
+                document.getElementById('voiceBtn').disabled = false;
+            };
+
+            recognition.onend = () => {
+                document.getElementById('voiceStatus').textContent = '';
+                document.getElementById('voiceBtn').disabled = false;
+            };
+
+            recognition.start();
+        }
+
+        function processVent() {
+            const text = document.getElementById('ventText').value.toLowerCase();
+            let response = 'I hear you. Take a deep breath and remember that this moment will pass.';
+
+            const stressWords = ['stress', 'overwhelmed', 'tired', 'anxious', 'angry', 'worried', 'frustrated'];
+            if (stressWords.some(word => text.includes(word))) {
+                const suggestions = [
+                    'Try taking a few more slow breaths to calm your body.',
+                    'Take a short break and step away for a few minutes.',
+                    'Focus on completing just one small task right now.',
+                    'Drink something calming like a warm cup of tea.',
+                    'Remember that difficult moments are temporary.'
+                ];
+                response = suggestions[Math.floor(Math.random() * suggestions.length)];
+            }
+
+            document.getElementById('responseCard').innerHTML = `<p>${response}</p>`;
+            document.getElementById('responseCard').style.display = 'block';
+            completedVent = true;
+
+            // Add continue button after a delay
+            setTimeout(() => {
+                const continueBtn = document.createElement('button');
+                continueBtn.className = 'continue-btn';
+                continueBtn.textContent = 'Continue';
+                continueBtn.onclick = () => showStep(4);
+                document.getElementById('vent').appendChild(continueBtn);
+            }, 2000);
+        }
+
+        // Step 4: Score calculation
+        function calculateScore() {
+            let stressLevel = 'High';
+            let focusLevel = 'Low';
+            let suggestion = 'Your mind seems overloaded. Take a few slow breaths and give yourself a small pause.';
+
+            // Calculate based on performance
+            const focusPerformance = score / 5; // Max 5 points
+
+            if (completedBreathing && focusPerformance >= 0.6) {
+                stressLevel = 'Medium';
+                focusLevel = 'Medium';
+                suggestion = 'You\'re making good progress. Keep practicing these resets regularly.';
+            }
+
+            if (completedBreathing && focusPerformance >= 0.8) {
+                stressLevel = 'Low';
+                focusLevel = 'High';
+                suggestion = 'Excellent! Your mind is well-balanced. Continue these healthy habits.';
+            }
+
+            document.getElementById('stressLevel').textContent = stressLevel;
+            document.getElementById('focusLevel').textContent = focusLevel;
+            document.getElementById('scoreSuggestion').textContent = suggestion;
+
+            // Add continue button
+            setTimeout(() => {
+                const continueBtn = document.createElement('button');
+                continueBtn.className = 'continue-btn';
+                continueBtn.textContent = 'Complete Reset';
+                continueBtn.onclick = () => showStep(5);
+                document.getElementById('score').appendChild(continueBtn);
+            }, 2000);
+        }
+
+        // Initialize score calculation when step 4 is shown
+        document.getElementById('score').addEventListener('transitionend', function() {
+            if (this.classList.contains('active')) {
+                calculateScore();
+            }
+        });
+    </script>
+</body>
+</html>
